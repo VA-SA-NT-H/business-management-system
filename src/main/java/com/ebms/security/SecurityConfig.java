@@ -35,7 +35,10 @@ public class SecurityConfig {
                     //             "MANAGER"
                     // )
                     
-                    .requestMatchers("/api/products/**")
+                    .requestMatchers(
+                        "/api/products/**",
+                        "/api/orders/**"
+                    )
                     .permitAll()
 
                     .anyRequest()
