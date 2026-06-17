@@ -20,6 +20,7 @@ public class SecurityConfig {
                     .requestMatchers(
                             "/api/auth/**",
                             "/swagger-ui/**",
+                            "/api/health",
                             "/v3/api-docs/**"
                     )
                     .permitAll()
@@ -27,11 +28,15 @@ public class SecurityConfig {
                     .requestMatchers(
                             "/api/customers/**"
                         )
-                            .hasAnyRole(
-                                "ADMIN",
-                                "MANAGER"
-                    )
+                        .permitAll()
+                    //         .hasAnyRole(
+                    //             "ADMIN",
+                    //             "MANAGER"
+                    // )
                     
+                    .requestMatchers("/api/products/**")
+                    .permitAll()
+
                     .anyRequest()
                     .authenticated()
                 );
@@ -44,3 +49,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+
