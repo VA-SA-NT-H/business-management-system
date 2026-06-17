@@ -26,7 +26,8 @@ public class SecurityConfig {
                     .permitAll()
 
                     .requestMatchers(
-                            "/api/customers/**"
+                            "/api/customers/**",
+                            "api/employees/**"
                         )
                         .permitAll()
                     //         .hasAnyRole(
