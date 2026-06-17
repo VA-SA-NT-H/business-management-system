@@ -3,6 +3,7 @@ package com.ebms.customer.service;
 import java.time.LocalDateTime;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.ebms.customer.dto.CustomerRequest;
@@ -64,27 +65,50 @@ public class CustomerServiceImpl
                 .build();
     }
 
-    @Override
+     @Override
     public Page<CustomerResponse> getAllCustomers(int page, int size) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAllCustomers'");
+
+        return repository.findAll(PageRequest.of(page, size))
+                .map(this::mapToResponse);
     }
 
     @Override
     public CustomerResponse updateCustomer(Long id, CustomerRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateCustomer'");
+
+        Customer customer = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Customer not found with id: " + id));
+
+        customer.setName(request.getName());
+        customer.setEmail(request.getEmail());
+        customer.setPhone(request.getPhone());
+        customer.setAddress(request.getAddress());
+
+        Customer updatedCustomer = repository.save(customer);
+
+        return mapToResponse(updatedCustomer);
     }
 
     @Override
     public void deleteCustomer(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteCustomer'");
+
+        Customer customer = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Customer not found with id: " + id));
+
+        repository.delete(customer);
     }
 
     @Override
-    public Page<CustomerResponse> searchCustomer(String keyword, int page, int size) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'searchCustomer'");
+    public Page<CustomerResponse> searchCustomer(
+            String keyword,
+            int page,
+            int size) {
+
+        return repository
+                .findByNameContainingIgnoreCase(
+                        keyword,
+                        PageRequest.of(page, size))
+                .map(this::mapToResponse);
     }
 }
