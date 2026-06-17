@@ -1,5 +1,7 @@
 package com.ebms.inventory.service;
 
+import com.ebms.audit.service.AuditLogService;
+import com.ebms.exception.BadRequestException;
 import com.ebms.exception.ResourceNotFoundException;
 import com.ebms.inventory.dto.ProductRequest;
 import com.ebms.inventory.dto.ProductResponse;
@@ -10,6 +12,7 @@ import com.ebms.inventory.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final InventoryTransactionRepository transactionRepository;
+
+    private final AuditLogService auditLogService;
 
     @Override
     public ProductResponse createProduct(ProductRequest request) {
@@ -44,6 +49,16 @@ public class ProductServiceImpl implements ProductService {
 
         Product savedProduct =
                 productRepository.save(product);
+        
+        auditLogService.log(
+        SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getName(),
+        "CREATE_PRODUCT",
+        "PRODUCT",
+        savedProduct.getId()
+);
 
         return mapToResponse(savedProduct);
     }
@@ -97,6 +112,16 @@ public class ProductServiceImpl implements ProductService {
         Product updatedProduct =
                 productRepository.save(product);
 
+        auditLogService.log(
+        SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getName(),
+        "UPDATE_PRODUCT",
+        "PRODUCT",
+        updatedProduct.getId()
+);
+
         return mapToResponse(updatedProduct);
     }
 
@@ -111,6 +136,16 @@ public class ProductServiceImpl implements ProductService {
                         ));
 
         productRepository.delete(product);
+
+        auditLogService.log(
+        SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getName(),
+        "DELETE_PRODUCT",
+        "PRODUCT",
+        product.getId()
+);
     }
 
     @Override
@@ -132,6 +167,16 @@ public class ProductServiceImpl implements ProductService {
 
         Product updatedProduct =
                 productRepository.save(product);
+
+                auditLogService.log(
+        SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getName(),
+        "ADD_STOCK",
+        "PRODUCT",
+        product.getId()
+);
 
         InventoryTransaction transaction =
                 InventoryTransaction.builder()
@@ -162,9 +207,9 @@ public class ProductServiceImpl implements ProductService {
                         ));
 
         if (product.getStockQuantity() < quantity) {
-            throw new RuntimeException(
-                    "Insufficient stock available"
-            );
+            throw new BadRequestException(
+                        "Insufficient stock"
+                );
         }
 
         product.setStockQuantity(
@@ -173,6 +218,16 @@ public class ProductServiceImpl implements ProductService {
 
         Product updatedProduct =
                 productRepository.save(product);
+
+                auditLogService.log(
+        SecurityContextHolder
+        .getContext()
+        .getAuthentication()
+        .getName(),
+        "REMOVE_STOCK",
+        "PRODUCT",
+        product.getId()
+);
 
         InventoryTransaction transaction =
                 InventoryTransaction.builder()
@@ -238,4 +293,6 @@ public class ProductServiceImpl implements ProductService {
                 )
                 .build();
     }
+
+    
 }

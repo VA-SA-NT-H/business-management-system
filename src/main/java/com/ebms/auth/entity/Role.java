@@ -1,5 +1,8 @@
 package com.ebms.auth.entity;
 
-public class Role {
-    
+public enum Role {
+    ADMIN,
+    MANAGER,
+    EMPLOYEE,
+    HR
 }

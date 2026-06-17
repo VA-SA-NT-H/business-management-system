@@ -1,27 +1,30 @@
-package com.ebms.auth.entity;
+package com.ebms.audit.entity;
 
-import com.ebms.auth.entity.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "users")
+@Table(name = "audit_logs")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class AuditLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
     private String username;
 
-    private String password;
+    private String action;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    private String entityName;
+
+    private Long entityId;
+
+    private LocalDateTime timestamp;
 }

@@ -7,7 +7,7 @@ import com.ebms.auth.dto.LoginRequest;
 import com.ebms.auth.dto.RegisterRequest;
 import com.ebms.auth.entity.User;
 import com.ebms.auth.repository.UserRepository;
-import com.ebms.common.enums.Role;
+import com.ebms.auth.entity.Role;
 import com.ebms.security.JwtService;
 
 import lombok.RequiredArgsConstructor;
