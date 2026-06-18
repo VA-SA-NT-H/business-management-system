@@ -39,6 +39,16 @@ public class AuthService {
         userRepository.save(user);
     }
 
+    public String getRole(String username){
+
+        User user = userRepository
+                .findByUsername(username)
+                .orElseThrow();
+
+        String role = user.getRole().name();
+        return role;
+    }
+
     public String login(LoginRequest request) {
 
         User user = userRepository

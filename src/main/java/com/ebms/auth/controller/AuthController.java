@@ -40,8 +40,13 @@ public class AuthController {
         String token =
                 authService.login(request);
 
+        String role =
+        authService.getRole(
+                request.getUsername()
+        );
+
         return ResponseEntity.ok(
-                new AuthResponse(token)
+                new AuthResponse(token, role)
         );
     }
 }

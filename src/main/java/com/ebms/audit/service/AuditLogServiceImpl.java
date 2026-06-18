@@ -6,13 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AuditLogServiceImpl
         implements AuditLogService {
 
-    private final AuditLogRepository repository;
+    private final AuditLogRepository auditLogRepository;
 
     @Override
     public void log(
@@ -21,7 +22,7 @@ public class AuditLogServiceImpl
             String entityName,
             Long entityId) {
 
-        AuditLog log =
+        AuditLog auditLog =
                 AuditLog.builder()
                         .username(username)
                         .action(action)
@@ -32,6 +33,12 @@ public class AuditLogServiceImpl
                         )
                         .build();
 
-        repository.save(log);
+        auditLogRepository.save(auditLog);
+    }
+
+    @Override
+    public List<AuditLog> getAllLogs() {
+
+        return auditLogRepository.findAll();
     }
 }

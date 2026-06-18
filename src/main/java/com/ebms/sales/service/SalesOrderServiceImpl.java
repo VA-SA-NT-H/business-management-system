@@ -157,6 +157,18 @@ public class SalesOrderServiceImpl implements SalesOrderService {
                 .toList();
     }
 
+    @Override
+    public void deleteOrderById(Long id){
+
+        SalesOrder order = salesOrderRepository
+                                .findById(id)
+                                .orElseThrow(() ->
+                                        new ResourceNotFoundException(
+                                                "Order not found with id: "+ id
+                                        ));
+        salesOrderRepository.delete(order);
+    }
+
     private SalesOrderResponse mapToResponse(
             SalesOrder order) {
 

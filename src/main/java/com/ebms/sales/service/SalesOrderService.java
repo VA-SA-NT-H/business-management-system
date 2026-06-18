@@ -7,6 +7,10 @@ import com.ebms.sales.dto.SalesOrderResponse;
 
 public interface SalesOrderService {
 
+    void deleteOrderById(
+        Long id
+    );
+
     SalesOrderResponse createOrder(
             CreateOrderRequest request
     );

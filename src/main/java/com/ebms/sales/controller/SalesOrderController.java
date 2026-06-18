@@ -41,4 +41,13 @@ public class SalesOrderController {
                 salesOrderService.getAllOrders()
         );
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteOrderById( @PathVariable Long id ) {
+        
+        salesOrderService.deleteOrderById(id);
+        return ResponseEntity.ok(
+         "Order deleted successfully"   
+        );
+    }
 }
