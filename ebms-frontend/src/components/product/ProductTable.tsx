@@ -36,11 +36,14 @@ const ProductTable = ({
 
   return (
     <div
-      className="
-      bg-white
-      dark:bg-slate-800
-      rounded-xl"
-    >
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  rounded-xl"
+>
 
       <table className="w-full">
 
@@ -86,11 +89,11 @@ const ProductTable = ({
             >
 
               <td className="p-3">
-                {product.productCode}
+                {product.sku}
               </td>
 
               <td className="p-3">
-                {product.productName}
+                {product.name}
               </td>
 
               <td className="p-3">
@@ -178,7 +181,7 @@ const ProductTable = ({
                   }
                 >
                   Export CSV
-</button>
+                </button>
 
               </div>
 

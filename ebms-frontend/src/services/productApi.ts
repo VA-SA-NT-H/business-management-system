@@ -1,8 +1,23 @@
 import api from "./api";
 import type { Product } from "../types/product";
 
+export interface PageResponse<T> {
+
+  content: T[];
+
+  totalElements: number;
+
+  totalPages: number;
+
+  size: number;
+
+  number: number;
+}
+
 export const getProducts =
-  async (): Promise<Product[]> => {
+  async (): Promise<
+    PageResponse<Product>
+  > => {
 
     const response =
       await api.get("/products");

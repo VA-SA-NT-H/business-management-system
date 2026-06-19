@@ -106,7 +106,7 @@ const PurchaseOrderForm = ({
               key={product.id}
               value={product.id}
             >
-              {product.productName}
+              {product.name}
             </option>
 
           ))}

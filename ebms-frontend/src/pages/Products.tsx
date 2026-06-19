@@ -95,7 +95,7 @@ const Products = () => {
         const data =
           await getProducts();
 
-        setProducts(data);
+        setProducts(data.content);
       }
       catch (error) {
 
@@ -293,11 +293,11 @@ const handleRemoveStock =
       true
     );
   };
-
+  console.log(products);
   const filteredProducts =
     products.filter(
       (product) =>
-        product.productName
+        (product.name ?? "")
           .toLowerCase()
           .includes(
             search.toLowerCase()

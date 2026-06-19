@@ -26,7 +26,7 @@ const ProductFormModal = ({
   useEffect(() => {
     if (product) {
       setForm({
-        productName: product.productName,
+        productName: product.name,
         description: product.description,
         price: product.price,
         stockQuantity: product.stockQuantity,
@@ -38,13 +38,32 @@ const ProductFormModal = ({
   if (!open) return null;
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setForm({
-      ...form,
-      [e.target.name]: Number(e.target.value)
-    });
-  };
+  e: React.ChangeEvent<HTMLInputElement>
+) => {
+
+  const {
+    name,
+    value
+  } = e.target;
+
+  const numericFields = [
+    "price",
+    "stockQuantity",
+    "reorderLevel"
+  ];
+
+  setForm({
+
+    ...form,
+
+    [name]:
+      numericFields.includes(name)
+        ? Number(value)
+        : value
+
+  });
+
+};
 
   const handleSubmit = () => {
     onSubmit(form);

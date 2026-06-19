@@ -56,7 +56,7 @@ const Procurement = () => {
     const productsData =
     await getProducts();
 
-    setProducts(productsData);
+    setProducts(productsData.content);
     setOrders(poData);
     setSuppliers(supplierData);
 

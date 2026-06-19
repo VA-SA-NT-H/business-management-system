@@ -2,9 +2,9 @@ export interface Product {
 
   id: number;
 
-  productCode: string;
+  sku: string;
 
-  productName: string;
+  name: string;
 
   description: string;
 

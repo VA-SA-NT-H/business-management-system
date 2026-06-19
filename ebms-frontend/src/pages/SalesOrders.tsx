@@ -69,7 +69,7 @@ const [products,
 
       setOrders(ordersData);
       setCustomers(customersData);
-      setProducts(productsData);
+      setProducts(productsData.content);
 
     } catch (error) {
 
