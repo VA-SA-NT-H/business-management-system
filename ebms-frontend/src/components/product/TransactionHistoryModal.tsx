@@ -19,7 +19,16 @@ const TransactionHistoryModal = ({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
 
-      <div className="bg-white p-6 rounded-xl w-[700px]">
+      <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  w-[700px]
+  rounded-xl"
+>
 
         <div className="flex justify-between mb-4">
 

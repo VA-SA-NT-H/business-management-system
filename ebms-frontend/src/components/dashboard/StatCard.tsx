@@ -20,10 +20,14 @@ const StatCard = ({
     <div
       className="
       bg-white
+      dark:bg-slate-800
+      text-black
+      dark:text-white
       rounded-2xl
       shadow-sm
       border
       border-slate-200
+      dark:border-slate-700
       p-6
       hover:shadow-md
       transition-all"
@@ -41,7 +45,8 @@ const StatCard = ({
           <p
             className="
             text-sm
-            text-slate-500"
+            text-slate-500
+            dark:text-slate-400"
           >
             {title}
           </p>
@@ -50,7 +55,9 @@ const StatCard = ({
             className="
             text-3xl
             font-bold
-            mt-2"
+            mt-2
+            text-black
+            dark:text-white"
           >
             {value}
           </h2>
@@ -59,7 +66,8 @@ const StatCard = ({
 
         <div
           className="
-          text-blue-600"
+          text-blue-600
+          dark:text-blue-400"
         >
           {icon}
         </div>

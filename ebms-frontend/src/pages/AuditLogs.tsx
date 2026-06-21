@@ -80,27 +80,23 @@ const AuditLogs = () => {
 
     <MainLayout>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Audit Logs
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">
+          Audit Logs
+        </h1>
 
-      <input
-        type="text"
-        placeholder="Search logs..."
-        value={search}
-        onChange={(e) =>
-          setSearch(
-            e.target.value
-          )
-        }
-        className="
-        border
-        rounded-lg
-        p-3
-        mb-6
-        w-full
-        md:w-96"
-      />
+        <input
+          type="text"
+          placeholder="Search logs..."
+          value={search}
+          onChange={(e) =>
+            setSearch(
+              e.target.value
+            )
+          }
+          className="border rounded-lg px-4 py-2 w-80 text-black dark:text-white bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
       <AuditLogTable
         logs={filteredLogs}

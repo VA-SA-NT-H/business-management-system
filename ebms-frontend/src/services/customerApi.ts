@@ -7,7 +7,7 @@ export const getCustomers =
     const response =
       await api.get("/customers");
 
-    return response.data;
+    return response.data.content;
   };
 
 export const createCustomer =

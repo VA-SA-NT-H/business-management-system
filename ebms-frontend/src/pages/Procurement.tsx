@@ -39,6 +39,10 @@ const Procurement = () => {
   setSuppliers] =
   useState<Supplier[]>([]);
 
+  const [search,
+    setSearch] =
+    useState("");
+
   useEffect(() => {
 
     loadData();
@@ -56,7 +60,7 @@ const Procurement = () => {
     const productsData =
     await getProducts();
 
-    setProducts(productsData);
+    setProducts(productsData.content);
     setOrders(poData);
     setSuppliers(supplierData);
 
@@ -72,13 +76,30 @@ const Procurement = () => {
       loadData();
     };
 
+  const filteredOrders = orders.filter(
+    (order) =>
+      (order.poNumber ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (order.supplierName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (order.productName ?? "").toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
 
     <MainLayout>
 
-      <h1 className="text-3xl font-bold mb-6">
-        Procurement
-      </h1>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-3xl font-bold">
+          Procurement
+        </h1>
+
+        <input
+          type="text"
+          placeholder="Search procurement..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="border rounded-lg px-4 py-2 w-80 text-black dark:text-white bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
 
       <PurchaseOrderForm
         suppliers={suppliers}
@@ -89,7 +110,7 @@ const Procurement = () => {
       <div className="mt-8">
 
         <PurchaseOrderTable
-          orders={orders}
+          orders={filteredOrders}
         />
 
       </div>

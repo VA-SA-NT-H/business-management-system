@@ -39,6 +39,8 @@ const [products,
   setProducts] =
   useState<Product[]>([]);
 
+  const [search, setSearch] = useState("");
+
   const [showModal, setShowModal] =
     useState(false);
 
@@ -69,7 +71,7 @@ const [products,
 
       setOrders(ordersData);
       setCustomers(customersData);
-      setProducts(productsData);
+      setProducts(productsData.content);
 
     } catch (error) {
 
@@ -112,6 +114,12 @@ const [products,
 
     };
 
+  const filteredOrders = orders.filter(
+    (order) =>
+      (order.customerName ?? "").toLowerCase().includes(search.toLowerCase()) ||
+      (order.orderNumber ?? "").toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
 
     <MainLayout>
@@ -132,20 +140,31 @@ const [products,
           Sales Orders
         </h1>
 
-        <button
-          onClick={() =>
-            setShowModal(true)
-          }
-          className="
-          bg-blue-600
-          text-white
-          px-4
-          py-2
-          rounded-lg
-          hover:bg-blue-700"
-        >
-          Create Order
-        </button>
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search orders..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="border rounded-lg px-4 py-2 w-80 text-black dark:text-white bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <button
+            onClick={() =>
+              setShowModal(true)
+            }
+            className="
+            bg-blue-600
+            hover:bg-blue-700
+            transition-colors
+            text-white
+            px-4
+            py-2
+            rounded-lg whitespace-nowrap"
+          >
+            Create Order
+          </button>
+        </div>
 
       </div>
 
@@ -158,7 +177,7 @@ const [products,
       ) : (
 
         <SalesOrderTable
-          orders={orders}
+          orders={filteredOrders}
         />
 
       )}

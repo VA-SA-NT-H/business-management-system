@@ -18,4 +18,6 @@ public class SalesOrderResponse {
     private Double totalAmount;
 
     private LocalDateTime orderDate;
+
+    private Integer productsCount;
 }

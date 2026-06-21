@@ -107,38 +107,35 @@ const Suppliers = () => {
 
     <MainLayout>
 
-      <div className="flex justify-between mb-6">
+      <div className="flex justify-between items-center mb-6">
 
         <h1 className="text-3xl font-bold">
           Suppliers
         </h1>
 
-        <input
-          type="text"
-          placeholder="Search suppliers..."
-          value={search}
-          onChange={(e) =>
-            setSearch(
-              e.target.value
-            )
-          }
-          className="
-          border
-          rounded
-          p-3
-          w-full
-          md:w-96"
-        />
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search suppliers..."
+            value={search}
+            onChange={(e) =>
+              setSearch(
+                e.target.value
+              )
+            }
+            className="border rounded-lg px-4 py-2 w-80 text-black dark:text-white bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-        <button
-          onClick={() => {
-            setSelectedSupplier(null);
-            setShowModal(true);
-          }}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Add Supplier
-        </button>
+          <button
+            onClick={() => {
+              setSelectedSupplier(null);
+              setShowModal(true);
+            }}
+            className="bg-blue-600 hover:bg-blue-700 transition-colors text-white px-4 py-2 rounded-lg whitespace-nowrap"
+          >
+            Add Supplier
+          </button>
+        </div>
 
       </div>
 

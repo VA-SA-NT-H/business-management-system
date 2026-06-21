@@ -1,16 +1,14 @@
 import type { Customer } from "../../types/customer";
 
 interface Props {
-
   customers: Customer[];
-
-  onDelete: (
-    id: number
-  ) => void;
+  onEdit: (customer: Customer) => void;
+  onDelete: (id: number) => void;
 }
 
 const CustomerTable = ({
   customers,
+  onEdit,
   onDelete
 }: Props) => {
 
@@ -19,6 +17,9 @@ const CustomerTable = ({
     <div
       className="
       bg-white
+      dark:bg-slate-800
+      text-black
+      dark:text-white
       rounded-xl
       shadow
       overflow-hidden"
@@ -33,18 +34,21 @@ const CustomerTable = ({
 
           <tr
             className="
-            bg-slate-100"
+            bg-slate-100
+            dark:bg-slate-700
+            text-slate-700
+            dark:text-slate-200"
           >
 
-            <th>ID</th>
+            <th className="p-3 text-left">ID</th>
 
-            <th>Name</th>
+            <th className="p-3 text-left">Name</th>
 
-            <th>Email</th>
+            <th className="p-3 text-left">Email</th>
 
-            <th>Phone</th>
+            <th className="p-3 text-left">Phone</th>
 
-            <th>Actions</th>
+            <th className="p-3 text-left">Actions</th>
 
           </tr>
 
@@ -61,37 +65,43 @@ const CustomerTable = ({
                 border-b"
               >
 
-                <td>
-                  {customer.customerCode}
+                <td className="p-3">
+                  {customer.id}
                 </td>
 
-                <td>
-                  {customer.firstName}
-                  {" "}
-                  {customer.lastName}
+                <td className="p-3">
+                  {customer.name}
                 </td>
 
-                <td>
+                <td className="p-3">
                   {customer.email}
                 </td>
 
-                <td>
+                <td className="p-3">
                   {customer.phone}
                 </td>
 
-                <td>
+                <td className="p-3">
 
-                  <button
-                    className="
-                    text-red-500"
-                    onClick={() =>
-                      onDelete(
-                        customer.id
-                      )
-                    }
-                  >
-                    Delete
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
+                      onClick={() => onEdit(customer)}
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
+                      onClick={() =>
+                        onDelete(
+                          customer.id
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+                  </div>
 
                 </td>
 

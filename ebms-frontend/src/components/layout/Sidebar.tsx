@@ -11,11 +11,11 @@ import {
 } from "lucide-react";
 
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
-
-  const role =
-  localStorage.getItem("role");
+  const { logout } = useAuth();
+  const role = localStorage.getItem("role");
 
   const menuItems = [
   {
@@ -137,6 +137,7 @@ const Sidebar = () => {
       >
 
         <button
+          onClick={logout}
           className="
           w-full
           flex

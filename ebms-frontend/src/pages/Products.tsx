@@ -95,7 +95,7 @@ const Products = () => {
         const data =
           await getProducts();
 
-        setProducts(data);
+        setProducts(data.content);
       }
       catch (error) {
 
@@ -293,11 +293,11 @@ const handleRemoveStock =
       true
     );
   };
-
+  console.log(products);
   const filteredProducts =
     products.filter(
       (product) =>
-        product.productName
+        (product.name ?? "")
           .toLowerCase()
           .includes(
             search.toLowerCase()
@@ -324,24 +324,28 @@ const handleRemoveStock =
           Products
         </h1>
 
-        <ProductSearch
-          value={search}
-          onChange={setSearch}
-        />
+        <div className="flex items-center gap-3">
+          <ProductSearch
+            value={search}
+            onChange={setSearch}
+          />
+
+          <button
+            onClick={handleCreate}
+            className="
+            bg-blue-600
+            hover:bg-blue-700
+            transition-colors
+            text-white
+            px-4
+            py-2
+            rounded-lg whitespace-nowrap"
+          >
+            Add Product
+          </button>
+        </div>
 
       </div>
-      
-      <button
-        onClick={handleCreate}
-        className="
-        bg-blue-600
-        text-white
-        px-4
-        py-2
-        rounded-lg"
-      >
-        Add Product
-      </button>
 
   {loading ? (
 

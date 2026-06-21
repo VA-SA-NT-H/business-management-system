@@ -176,33 +176,31 @@ const Employees = () => {
           Employees
         </h1>
 
-        <button
-          onClick={() => {
+        <div className="flex items-center gap-3">
+          <input
+            type="text"
+            placeholder="Search employees..."
+            value={search}
+            onChange={(e) =>
+              setSearch(
+                e.target.value
+              )
+            }
+            className="border rounded-lg px-4 py-2 w-80 text-black dark:text-white bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
 
-            setSelectedEmployee(null);
-            setShowModal(true);
+          <button
+            onClick={() => {
 
-          }}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          Add Employee
-        </button>
+              setSelectedEmployee(null);
+              setShowModal(true);
 
-      </div>
-
-      <div className="mb-6">
-
-        <input
-          type="text"
-          placeholder="Search employees..."
-          value={search}
-          onChange={(e) =>
-            setSearch(
-              e.target.value
-            )
-          }
-          className="border rounded p-3 w-full md:w-96"
-        />
+            }}
+            className="bg-blue-600 hover:bg-blue-700 transition-colors text-white px-4 py-2 rounded-lg whitespace-nowrap"
+          >
+            Add Employee
+          </button>
+        </div>
 
       </div>
 

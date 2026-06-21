@@ -18,4 +18,8 @@ public class PurchaseOrderResponse {
     private Double totalAmount;
 
     private LocalDateTime orderDate;
+
+    private String productName;
+
+    private Integer quantity;
 }

@@ -74,7 +74,16 @@ const EmployeeFormModal = ({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-      <div className="bg-white rounded-xl p-6 w-[600px]">
+      <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  w-[600px]
+  rounded-xl"
+>
 
         <h2 className="text-2xl font-bold mb-6">
           {employee
@@ -136,7 +145,7 @@ const EmployeeFormModal = ({
             type="number"
             name="salary"
             placeholder="Salary"
-            value={form.salary}
+            value={form.salary || ""}
             onChange={handleChange}
             className="border rounded p-3 col-span-2"
           />

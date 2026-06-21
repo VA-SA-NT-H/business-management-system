@@ -11,6 +11,8 @@ export interface SalesOrder {
   orderDate: string;
 
   status: string;
+
+  productsCount?: number;
 }
 
 export interface CreateSalesOrderRequest {

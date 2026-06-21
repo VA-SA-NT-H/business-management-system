@@ -7,7 +7,10 @@ export const getEmployees =
     const response =
       await api.get("/employees");
 
-    return response.data;
+    return response.data.content.map((emp: any) => ({
+      ...emp,
+      department: emp.departmentName || emp.department || ""
+    }));
   };
 
 export const createEmployee =

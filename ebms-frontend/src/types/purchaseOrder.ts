@@ -9,4 +9,8 @@ export interface PurchaseOrder {
   totalAmount: number;
 
   orderDate: string;
+
+  productName?: string;
+
+  quantity?: number;
 }

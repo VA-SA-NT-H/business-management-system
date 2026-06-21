@@ -62,7 +62,16 @@ const SupplierFormModal = ({
   return (
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
 
-      <div className="bg-white rounded-xl p-6 w-[500px]">
+      <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  w-[500px]
+  rounded-xl"
+>
 
         <h2 className="text-xl font-bold mb-4">
           {supplier ? "Edit Supplier" : "Add Supplier"}

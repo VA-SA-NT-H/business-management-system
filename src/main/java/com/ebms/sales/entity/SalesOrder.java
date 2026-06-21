@@ -28,4 +28,7 @@ public class SalesOrder {
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
+
+    @OneToMany(mappedBy = "salesOrder", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private java.util.List<SalesOrderItem> items;
 }

@@ -27,4 +27,8 @@ public class PurchaseOrder {
     @ManyToOne
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
+
+    @OneToMany(mappedBy = "purchaseOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @Builder.Default
+    private java.util.List<PurchaseOrderItem> items = new java.util.ArrayList<>();
 }

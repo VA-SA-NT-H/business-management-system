@@ -13,13 +13,14 @@ const TopProductsTable = ({
   return (
 
     <div
-      className="
-      bg-white
-      dark:bg-slate-800
-      rounded-xl
-      shadow
-      overflow-hidden"
-    >
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  rounded-xl"
+>
 
       <div className="p-4">
 
@@ -40,7 +41,9 @@ const TopProductsTable = ({
           <tr
             className="
             bg-slate-100
-            dark:bg-slate-700"
+            dark:bg-slate-700
+            text-slate-700
+            dark:text-slate-200"
           >
 
             <th

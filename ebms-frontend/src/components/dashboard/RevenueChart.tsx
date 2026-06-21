@@ -32,9 +32,14 @@ const RevenueChart = ({
     <div
       className="
       bg-white
+      dark:bg-slate-800
+      text-black
+      dark:text-white
       rounded-2xl
       shadow-sm
       border
+      border-slate-200
+      dark:border-slate-700
       p-6"
     >
 
@@ -42,7 +47,9 @@ const RevenueChart = ({
         className="
         text-xl
         font-semibold
-        mb-4"
+        mb-4
+        text-black
+        dark:text-white"
       >
         Revenue Analytics
       </h2>

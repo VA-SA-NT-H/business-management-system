@@ -21,18 +21,30 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final DepartmentRepository departmentRepository;
 
+    private Department getOrCreateDepartment(EmployeeRequest request) {
+        if (request.getDepartment() != null && !request.getDepartment().trim().isEmpty()) {
+            return departmentRepository.findByDepartmentNameIgnoreCase(request.getDepartment().trim())
+                    .orElseGet(() -> departmentRepository.save(
+                            Department.builder()
+                                    .departmentName(request.getDepartment().trim())
+                                    .description("Auto-created department for " + request.getDepartment().trim())
+                                    .build()
+                    ));
+        }
+        if (request.getDepartmentId() != null) {
+            return departmentRepository.findById(request.getDepartmentId())
+                    .orElseThrow(() -> new ResourceNotFoundException(
+                            "Department not found with id: " + request.getDepartmentId()
+                    ));
+        }
+        throw new IllegalArgumentException("Department name or ID is required");
+    }
+
     @Override
     public EmployeeResponse createEmployee(
             EmployeeRequest request) {
 
-        Department department =
-                departmentRepository.findById(
-                                request.getDepartmentId())
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Department not found with id: "
-                                                + request.getDepartmentId()
-                                ));
+        Department department = getOrCreateDepartment(request);
 
         Employee employee = Employee.builder()
                 .employeeCode(generateEmployeeCode())
@@ -90,14 +102,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                                                 + id
                                 ));
 
-        Department department =
-                departmentRepository.findById(
-                                request.getDepartmentId())
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Department not found with id: "
-                                                + request.getDepartmentId()
-                                ));
+        Department department = getOrCreateDepartment(request);
 
         employee.setFirstName(request.getFirstName());
         employee.setLastName(request.getLastName());

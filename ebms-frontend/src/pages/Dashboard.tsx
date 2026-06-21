@@ -26,7 +26,8 @@ import InventoryWidget from "../components/dashboard/InventoryWidget";
 
 import {
   getRevenueReport,
-  getTopProducts
+  getTopProducts,
+  getLowStockProducts
 } from "../services/reportApi";
 
 const Dashboard = () => {
@@ -48,32 +49,32 @@ const Dashboard = () => {
   const [topProducts, setTopProducts] =
   useState<TopProduct[]>([]);
 
+  const [lowStockCount, setLowStockCount] =
+    useState(0);
+
   useEffect(() => {
 
     const loadDashboard =
       async () => {
 
-        const revenueData =
-  await getRevenueReport();
-
-  const topProductsData =
-    await getTopProducts();
-
-  setRevenue(revenueData);
-
-  setTopProducts(
-    topProductsData
-  );
-
         try {
+          const [revenueData, topProductsData, lowStockData] = await Promise.all([
+            getRevenueReport(),
+            getTopProducts(),
+            getLowStockProducts()
+          ]);
+
+          setRevenue(revenueData);
+          setTopProducts(topProductsData);
+          setLowStockCount(lowStockData.length);
 
           const response =
             await getDashboardSummary();
 
           setData(response);
         }
-        catch {
-
+        catch (err) {
+          console.error(err);
           setError(
             "Failed to load dashboard"
           );
@@ -95,7 +96,9 @@ const Dashboard = () => {
       className="
       text-3xl
       font-bold
-      mb-8"
+      mb-8
+      text-black
+      dark:text-white"
     >
       Dashboard
     </h1>
@@ -178,7 +181,7 @@ const Dashboard = () => {
             totalProducts={
               data.totalProducts
             }
-            lowStockProducts={0}
+            lowStockProducts={lowStockCount}
           />
 
         </div>

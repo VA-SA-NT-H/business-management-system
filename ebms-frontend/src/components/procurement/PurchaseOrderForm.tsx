@@ -24,14 +24,16 @@ const PurchaseOrderForm = ({
 
   const [quantity,
     setQuantity] =
-    useState(1);
+    useState<"" | number>("");
 
   const [unitCost,
     setUnitCost] =
-    useState(0);
+    useState<"" | number>("");
 
   const handleSubmit = () => {
-
+    if (!supplierId || !productId || quantity === "" || unitCost === "") {
+      return;
+    }
     onSubmit({
       supplierId: Number(
         supplierId
@@ -41,17 +43,28 @@ const PurchaseOrderForm = ({
           productId: Number(
             productId
           ),
-          quantity,
-          unitCost
+          quantity: Number(quantity),
+          unitCost: Number(unitCost)
         }
       ]
     });
-
+    setSupplierId("");
+    setProductId("");
+    setQuantity("");
+    setUnitCost("");
   };
 
   return (
 
-    <div className="bg-white rounded-xl p-6 shadow">
+    <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  rounded-xl"
+>
 
       <h2 className="text-xl font-bold mb-4">
         Create Purchase Order
@@ -66,7 +79,7 @@ const PurchaseOrderForm = ({
               e.target.value
             )
           }
-          className="w-full border p-3 rounded"
+          className="w-full border p-3 rounded bg-white dark:bg-slate-700 text-black dark:text-white border-slate-200 dark:border-slate-600"
         >
           <option value="">
             Select Supplier
@@ -92,7 +105,7 @@ const PurchaseOrderForm = ({
           onChange={(e) =>
             setProductId(e.target.value)
           }
-          className="w-full border p-3 rounded"
+          className="w-full border p-3 rounded bg-white dark:bg-slate-700 text-black dark:text-white border-slate-200 dark:border-slate-600"
         >
 
 
@@ -106,7 +119,7 @@ const PurchaseOrderForm = ({
               key={product.id}
               value={product.id}
             >
-              {product.productName}
+              {product.name}
             </option>
 
           ))}
@@ -119,9 +132,7 @@ const PurchaseOrderForm = ({
           value={quantity}
           onChange={(e) =>
             setQuantity(
-              Number(
-                e.target.value
-              )
+              e.target.value === "" ? "" : Number(e.target.value)
             )
           }
           className="w-full border p-3 rounded"
@@ -133,9 +144,7 @@ const PurchaseOrderForm = ({
           value={unitCost}
           onChange={(e) =>
             setUnitCost(
-              Number(
-                e.target.value
-              )
+              e.target.value === "" ? "" : Number(e.target.value)
             )
           }
           className="w-full border p-3 rounded"

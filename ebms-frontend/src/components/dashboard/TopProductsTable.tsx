@@ -16,9 +16,14 @@ const TopProductsTable = ({
     <div
       className="
       bg-white
+      dark:bg-slate-800
+      text-black
+      dark:text-white
       rounded-2xl
       shadow-sm
       border
+      border-slate-200
+      dark:border-slate-700
       p-6"
     >
 
@@ -26,7 +31,9 @@ const TopProductsTable = ({
         className="
         text-xl
         font-semibold
-        mb-4"
+        mb-4
+        text-black
+        dark:text-white"
       >
         Top Selling Products
       </h2>
@@ -40,7 +47,11 @@ const TopProductsTable = ({
 
           <tr
             className="
-            border-b"
+            border-b
+            border-slate-200
+            dark:border-slate-700
+            text-slate-700
+            dark:text-slate-200"
           >
 
             <th

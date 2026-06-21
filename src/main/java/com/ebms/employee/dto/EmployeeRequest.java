@@ -12,4 +12,5 @@ public class EmployeeRequest {
     private String designation;
     private Double salary;
     private Long departmentId;
+    private String department;
 }

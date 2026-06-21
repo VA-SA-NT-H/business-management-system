@@ -23,19 +23,19 @@ const SupplierTable = ({
 
   return (
 
-    <div className="bg-white rounded-xl shadow">
+    <div className="bg-white dark:bg-slate-800 text-black dark:text-white rounded-xl shadow overflow-hidden">
 
       <table className="w-full">
 
         <thead>
 
-          <tr className="bg-slate-100">
+          <tr className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
 
-            <th>Code</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Actions</th>
+            <th className="p-3 text-left">Code</th>
+            <th className="p-3 text-left">Name</th>
+            <th className="p-3 text-left">Email</th>
+            <th className="p-3 text-left">Phone</th>
+            <th className="p-3 text-left">Actions</th>
 
           </tr>
 
@@ -48,45 +48,52 @@ const SupplierTable = ({
 
               <tr
                 key={supplier.id}
+                className="border-b"
               >
 
-                <td>
+                <td className="p-3">
                   {supplier.supplierCode}
                 </td>
 
-                <td>
+                <td className="p-3">
                   {supplier.supplierName}
                 </td>
 
-                <td>
+                <td className="p-3">
                   {supplier.email}
                 </td>
 
-                <td>
+                <td className="p-3">
                   {supplier.phone}
                 </td>
 
-                <td>
+                <td className="p-3">
 
-                  <button
-                    onClick={() =>
-                      onEdit(
-                        supplier
-                      )
-                    }
-                  >
-                    Edit
-                  </button>
+                  <div className="flex gap-2">
 
-                  <button
-                    onClick={() =>
-                      onDelete(
-                        supplier.id
-                      )
-                    }
-                  >
-                    Delete
-                  </button>
+                    <button
+                      className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
+                      onClick={() =>
+                        onEdit(
+                          supplier
+                        )
+                      }
+                    >
+                      Edit
+                    </button>
+
+                    <button
+                      className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
+                      onClick={() =>
+                        onDelete(
+                          supplier.id
+                        )
+                      }
+                    >
+                      Delete
+                    </button>
+
+                  </div>
 
                 </td>
 

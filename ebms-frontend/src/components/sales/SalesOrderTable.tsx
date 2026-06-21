@@ -12,13 +12,13 @@ const SalesOrderTable = ({
 
   return (
 
-    <div className="bg-white rounded-xl shadow overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 text-black dark:text-white rounded-xl shadow overflow-hidden">
 
       <table className="w-full">
 
         <thead>
 
-          <tr className="bg-slate-100">
+          <tr className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
 
             <th className="p-3 text-left">
               Order Number
@@ -26,6 +26,10 @@ const SalesOrderTable = ({
 
             <th className="p-3 text-left">
               Customer
+            </th>
+
+            <th className="p-3 text-left">
+              Products Selected
             </th>
 
             <th className="p-3 text-left">
@@ -59,6 +63,10 @@ const SalesOrderTable = ({
 
               <td className="p-3">
                 {order.customerName}
+              </td>
+
+              <td className="p-3 text-center md:text-left">
+                {order.productsCount ?? 0}
               </td>
 
               <td className="p-3">

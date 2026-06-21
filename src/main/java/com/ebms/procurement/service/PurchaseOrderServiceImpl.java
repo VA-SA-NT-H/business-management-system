@@ -66,6 +66,8 @@ public class PurchaseOrderServiceImpl
         PurchaseOrder savedPO =
                 purchaseOrderRepository.save(purchaseOrder);
 
+        java.util.List<PurchaseOrderItem> poItemsList = new java.util.ArrayList<>();
+
         for (PurchaseOrderItemRequest item : request.getItems()) {
 
             Product product =
@@ -88,6 +90,7 @@ public class PurchaseOrderServiceImpl
                             .build();
 
             purchaseOrderItemRepository.save(poItem);
+            poItemsList.add(poItem);
 
             product.setStockQuantity(
                     product.getStockQuantity()
@@ -105,6 +108,8 @@ public class PurchaseOrderServiceImpl
 
             inventoryTransactionRepository.save(transaction);
         }
+
+        savedPO.setItems(poItemsList);
 
         auditLogService.log(
                 "SYSTEM",
@@ -143,6 +148,15 @@ public class PurchaseOrderServiceImpl
     private PurchaseOrderResponse mapToResponse(
             PurchaseOrder po) {
 
+        String productName = "N/A";
+        int totalQty = 0;
+        if (po.getItems() != null && !po.getItems().isEmpty()) {
+            productName = po.getItems().get(0).getProduct().getName();
+            totalQty = po.getItems().stream()
+                    .mapToInt(PurchaseOrderItem::getQuantity)
+                    .sum();
+        }
+
         return PurchaseOrderResponse.builder()
                 .id(po.getId())
                 .poNumber(po.getPoNumber())
@@ -151,6 +165,8 @@ public class PurchaseOrderServiceImpl
                                 .getSupplierName())
                 .totalAmount(po.getTotalAmount())
                 .orderDate(po.getOrderDate())
+                .productName(productName)
+                .quantity(totalQty)
                 .build();
     }
 

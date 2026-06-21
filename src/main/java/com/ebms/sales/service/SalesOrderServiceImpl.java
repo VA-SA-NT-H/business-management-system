@@ -180,6 +180,7 @@ public class SalesOrderServiceImpl implements SalesOrderService {
                 )
                 .totalAmount(order.getTotalAmount())
                 .orderDate(order.getOrderDate())
+                .productsCount(order.getItems() != null ? order.getItems().size() : 0)
                 .build();
     }
 

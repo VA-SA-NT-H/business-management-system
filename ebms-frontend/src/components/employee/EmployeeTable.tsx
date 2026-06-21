@@ -14,13 +14,13 @@ const EmployeeTable = ({
 
   return (
 
-    <div className="bg-white rounded-xl shadow overflow-hidden">
+    <div className="bg-white dark:bg-slate-800 text-black dark:text-white rounded-xl shadow overflow-hidden">
 
       <table className="w-full">
 
         <thead>
 
-          <tr className="bg-slate-100">
+          <tr className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
 
             <th className="p-3 text-left">
               Code
@@ -90,13 +90,13 @@ const EmployeeTable = ({
 
                 <td className="p-3">
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-2">
 
                     <button
                       onClick={() =>
                         onEdit(employee)
                       }
-                      className="text-blue-600"
+                      className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                     >
                       Edit
                     </button>
@@ -105,7 +105,7 @@ const EmployeeTable = ({
                       onClick={() =>
                         onDelete(employee.id)
                       }
-                      className="text-red-600"
+                      className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                     >
                       Delete
                     </button>

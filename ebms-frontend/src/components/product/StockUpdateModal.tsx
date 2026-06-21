@@ -22,7 +22,16 @@ const StockUpdateModal = ({
   return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
 
-      <div className="bg-white p-6 rounded-xl w-[400px]">
+      <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  w-[400px]
+  rounded-xl"
+>
 
         <h2 className="text-xl font-bold mb-4">
 

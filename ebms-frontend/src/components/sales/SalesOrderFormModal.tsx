@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
 
@@ -26,12 +26,30 @@ const SalesOrderFormModal = ({
     useState("");
 
   const [items, setItems] =
-  useState([
+  useState<{
+    productId: string;
+    quantity: "" | number;
+  }[]>([
     {
       productId: "",
-      quantity: 1
+      quantity: ""
     }
   ]);
+
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    if (open) {
+      setCustomerId("");
+      setItems([
+        {
+          productId: "",
+          quantity: ""
+        }
+      ]);
+      setErrorMsg("");
+    }
+  }, [open]);
 
   if (!open) return null;
 
@@ -41,7 +59,7 @@ const SalesOrderFormModal = ({
     ...items,
     {
       productId: "",
-      quantity: 1
+      quantity: ""
     }
   ]);
 
@@ -75,7 +93,7 @@ const updateProduct = (
 
 const updateQuantity = (
   index: number,
-  quantity: number
+  quantity: "" | number
 ) => {
 
   const updated = [...items];
@@ -88,34 +106,40 @@ const updateQuantity = (
 };
   
   const handleSubmit = () => {
+    if (!customerId) {
+      setErrorMsg("Please select a customer.");
+      return;
+    }
+    const validItems = items.filter(item => item.productId !== "" && item.quantity !== "" && Number(item.quantity) > 0);
+    if (validItems.length === 0) {
+      setErrorMsg("Please select at least one product with a valid quantity.");
+      return;
+    }
 
-  if (!customerId) {
-    return;
-  }
-
-  onSubmit({
-
-    customerId:
-      Number(customerId),
-
-    items:
-      items.map(item => ({
-        productId:
-          Number(item.productId),
-
-        quantity:
-          item.quantity
+    setErrorMsg("");
+    onSubmit({
+      customerId: Number(customerId),
+      items: validItems.map(item => ({
+        productId: Number(item.productId),
+        quantity: Number(item.quantity)
       }))
-
-  });
-
-};
+    });
+  };
 
   return (
 
     <div className="fixed inset-0 bg-black/40 flex justify-center items-center">
 
-      <div className="bg-white p-6 rounded-xl w-[500px]">
+      <div
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  w-[500px]
+  rounded-xl"
+>
 
         <h2 className="text-xl font-bold mb-4">
           Create Sales Order
@@ -128,7 +152,7 @@ const updateQuantity = (
               e.target.value
             )
           }
-          className="w-full border p-3 rounded mb-3"
+          className="w-full border p-3 rounded mb-3 bg-white dark:bg-slate-700 text-black dark:text-white border-slate-200 dark:border-slate-600"
         >
 
           <option value="">
@@ -142,7 +166,7 @@ const updateQuantity = (
                 key={customer.id}
                 value={customer.id}
               >
-                {customer.firstName} {customer.lastName}
+                {customer.name}
               </option>
 
             )
@@ -174,7 +198,7 @@ const updateQuantity = (
           flex-1
           border
           p-3
-          rounded"
+          rounded bg-white dark:bg-slate-700 text-black dark:text-white border-slate-200 dark:border-slate-600"
       >
 
         <option value="">
@@ -188,7 +212,7 @@ const updateQuantity = (
               key={product.id}
               value={product.id}
             >
-              {product.productName}
+              {product.name}
             </option>
 
           )
@@ -199,20 +223,19 @@ const updateQuantity = (
       <input
         type="number"
         min="1"
+        placeholder="Qty"
         value={item.quantity}
         onChange={(e) =>
           updateQuantity(
             index,
-            Number(
-              e.target.value
-            )
+            e.target.value === "" ? "" : Number(e.target.value)
           )
         }
         className="
           w-24
           border
           p-3
-          rounded"
+          rounded bg-white dark:bg-slate-700 text-black dark:text-white border-slate-200 dark:border-slate-600"
       />
 
       {items.length > 1 && (
@@ -249,6 +272,12 @@ const updateQuantity = (
       >
         Add Product
       </button>
+
+        {errorMsg && (
+          <div className="text-red-500 mb-3 text-sm font-medium">
+            {errorMsg}
+          </div>
+        )}
 
         <div className="flex justify-end gap-3 mt-5">
 

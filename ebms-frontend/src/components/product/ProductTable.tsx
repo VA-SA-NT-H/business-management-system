@@ -36,17 +36,20 @@ const ProductTable = ({
 
   return (
     <div
-      className="
-      bg-white
-      dark:bg-slate-800
-      rounded-xl"
-    >
+  className="
+  bg-white
+  dark:bg-slate-800
+  text-black
+  dark:text-white
+  p-6
+  rounded-xl"
+>
 
       <table className="w-full">
 
         <thead>
 
-          <tr className="bg-slate-100">
+          <tr className="bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200">
 
             <th className="p-3 text-left">
               Code
@@ -86,11 +89,11 @@ const ProductTable = ({
             >
 
               <td className="p-3">
-                {product.productCode}
+                {product.sku}
               </td>
 
               <td className="p-3">
-                {product.productName}
+                {product.name}
               </td>
 
               <td className="p-3">
@@ -104,7 +107,7 @@ const ProductTable = ({
               <td className="p-3">
 
                 {product.stockQuantity <=
-                product.reorderLevel ? (
+                product.minimumStockLevel ? (
 
                   <span className="text-red-500 font-medium">
                     Low Stock
@@ -122,13 +125,13 @@ const ProductTable = ({
 
               <td className="p-3">
 
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-2 flex-wrap items-center">
 
                 <button
                   onClick={() =>
                     onViewTransactions(product.id)
                   }
-                  className="text-blue-600"
+                  className="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   View
                 </button>
@@ -137,7 +140,7 @@ const ProductTable = ({
                   onClick={() =>
                     onEdit(product)
                   }
-                  className="text-yellow-600"
+                  className="px-3 py-1 bg-amber-500 hover:bg-amber-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   Edit
                 </button>
@@ -146,7 +149,7 @@ const ProductTable = ({
                   onClick={() =>
                     onAddStock(product)
                   }
-                  className="text-green-600"
+                  className="px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   Add Stock
                 </button>
@@ -155,7 +158,7 @@ const ProductTable = ({
                   onClick={() =>
                     onRemoveStock(product)
                   }
-                  className="text-orange-600"
+                  className="px-3 py-1 bg-orange-500 hover:bg-orange-600 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   Remove Stock
                 </button>
@@ -164,7 +167,7 @@ const ProductTable = ({
                   onClick={() =>
                     onDelete(product.id)
                   }
-                  className="text-red-600"
+                  className="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   Delete
                 </button>
@@ -176,9 +179,10 @@ const ProductTable = ({
                       products
                     )
                   }
+                  className="px-3 py-1 bg-slate-600 hover:bg-slate-700 text-white rounded-full text-xs font-semibold shadow-sm transition-all"
                 >
                   Export CSV
-</button>
+                </button>
 
               </div>
 

@@ -135,7 +135,7 @@ public class ProductServiceImpl implements ProductService {
                                 "Product not found with id: " + id
                         ));
 
-        productRepository.delete(product);
+        productRepository.deleteById(id);
 
         auditLogService.log(
         SecurityContextHolder

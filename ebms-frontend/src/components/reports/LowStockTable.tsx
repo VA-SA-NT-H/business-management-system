@@ -62,7 +62,7 @@ const LowStockTable = ({
               >
 
                 <td className="p-3">
-                  {product.productName}
+                  {product.name}
                 </td>
 
                 <td className="p-3 text-red-600 font-medium">
@@ -70,7 +70,7 @@ const LowStockTable = ({
                 </td>
 
                 <td className="p-3">
-                  {product.reorderLevel}
+                  {product.minimumStockLevel}
                 </td>
 
               </tr>
