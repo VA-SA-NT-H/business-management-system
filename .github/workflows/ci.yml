@@ -23,7 +23,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: ebms
         ports:
-          - 3306:3306
+          - 3307:3306
         options: >-
           --health-cmd="mysqladmin ping -h localhost -proot"
           --health-interval=10s
@@ -48,6 +48,8 @@ jobs:
         run: ./mvnw clean package -DskipTests
 
       - name: Run Backend Tests
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3307/ebms?autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
         run: ./mvnw test
 
   frontend-build:
