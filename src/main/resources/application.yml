@@ -2,7 +2,8 @@ spring:
     application:
         name: enterprise-business-management-system
     datasource:
-            url: jdbc:mysql://localhost:3306/ebms
+            # url: jdbc:mysql://localhost:3306/ebms
+            url: jdbc:mysql://mysql:3306/ebms
             username: root
             password: root
 
