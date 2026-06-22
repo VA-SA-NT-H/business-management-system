@@ -1,0 +1,97 @@
+name: Enterprise Business Management System CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  backend-build:
+
+    runs-on: ubuntu-latest
+
+    services:
+    mysql:
+      image: mysql:8
+      env:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: ebms
+      ports:
+        - 3307:3306
+      options: >-
+        --health-cmd="mysqladmin ping -h localhost -proot"
+        --health-interval=10s
+        --health-timeout=5s
+        --health-retries=10
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Make Maven Wrapper Executable
+        run: chmod +x mvnw
+
+      - name: Build Backend
+        run: ./mvnw clean package -DskipTests
+
+      - name: Run Backend Tests
+        run: ./mvnw test
+
+  frontend-build:
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./ebms-frontend
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Frontend
+        run: npm run build
+
+  docker-validation:
+
+    runs-on: ubuntu-latest
+
+    needs:
+      - backend-build
+      - frontend-build
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Backend Docker Image
+        run: docker build -t ebms-backend .
+
+      - name: Build Frontend Docker Image
+        run: docker build -t ebms-frontend ./ebms-frontend
+
+      - name: Validate Docker Compose
+        run: docker compose config
